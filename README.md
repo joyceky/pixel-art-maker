@@ -1,3 +1,5 @@
+http://pixelartist.surge.sh/
+
 # Pixel Art Maker
 
 In this exercise, you'll create your own pixel art maker which will allow a user to choose colors from a palette and then paint pixel art. The interface is completely up to you, but it could look something like this.
@@ -44,4 +46,4 @@ Review the following articles on the Surge platform and then deploy your website
 
 A good domain name for this project is `USERNAME-pixel-art-maker.surge.sh` where `USERNAME` is your GitHub username in all **lowercase** letters. Once deployed and everything works as you expect, copy the URL to your site and paste it below.
 
-PASTE YOUR PRODUCTION URL HERE
+http://pixelartist.surge.sh/
