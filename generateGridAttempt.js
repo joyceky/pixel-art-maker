@@ -52,27 +52,34 @@ function getNumRowsFromGridSize() {
 }
 /************************BUILDING THE TABLE*******************************/
 
-
-var brushColor = 'black';
-var colorArr = ['#1ABC9C', '#2ECC71', '#3498DB', '#9B59B6', '#34495E',
-    '#F1C40F', '#E67E22', '#E74C3C', '#BDC3C7', '#7F8C8D'
-];
+/************************SETTING GLOBAL VARIABLES*******************************/
 
 var grid = document.querySelector("#divTableContainer");
 var colors = document.querySelector("#colorWrapper");
 var spans = document.querySelectorAll('span');
-
-console.log(grid);
-console.log(brushColor);
-
 var body = document.querySelector('body');
-body.addEventListener("mousedown", mouseDown, true);
-body.addEventListener("mouseup", mouseUp, true);
-body.addEventListener("mouseenter", mouseMoving, true);
+
+/************************SETTING GLOBAL VARIABLES*******************************/
+
+/************************SETTING THE COLOR PALETTE*******************************/
+var brushColor = 'black';
+var colorArr = ['#1ABC9C', '#2ECC71', '#3498DB', '#9B59B6', '#34495E',
+    '#F1C40F', '#E67E22', '#E74C3C', '#BDC3C7', '#7F8C8D', '#000000', '#FFFFFF'
+];
+
+function applyColors(colArr) {
+    for (var i = 0; i < spans.length; i++) {
+        spans[i].setAttribute("style", "background-color: " + colArr[i]);
+    }
+}
+
+applyColors(colorArr);
+
+/************************SETTING THE COLOR PALETTE*******************************/
+
+/************************TRACKING CLICKS AND MOUSE MOVEMENTS*******************************/
 var mouseIsDown;
 var mouseIsMoving;
-
-console.log(mouseIsDown);
 
 function mouseDown() {
     mouseIsDown = true;
@@ -91,11 +98,9 @@ function mouseMoving() {
     }
 }
 
-function applyColors(colArr) {
-    for (var i = 0; i < spans.length; i++) {
-        spans[i].setAttribute("style", "background-color: " + colArr[i]);
-    }
-}
+/************************TRACKING CLICKS AND MOUSE MOVEMENTS*******************************/
+
+/************************PAINTING ON THE CANVAS*******************************/
 
 var getColor = function() {
     if (event.target !== event.currentTarget) {
@@ -113,8 +118,10 @@ var changeColor = function() {
     }
 };
 
-applyColors(colorArr);
+body.addEventListener("mousedown", mouseDown, true);
+body.addEventListener("mouseup", mouseUp, true);
+body.addEventListener("mouseenter", mouseMoving, true)
 grid.addEventListener("mousedown", changeColor, false);
 colors.addEventListener("mousedown", getColor, false);
 
-////////////////////////////////////////////////////////////////////////////////
+/************************PAINTING ON THE CANVAS*******************************/
