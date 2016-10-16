@@ -2,7 +2,7 @@
 /************************SETTING GLOBAL VARIABLES*******************************/
 
 // Size of the square including the border width
-var squareSize = 13;
+var squareSize = 8;
 
 var grid = document.querySelector("#divTableContainer");
 var colors = document.querySelector("#colorWrapper");
@@ -107,20 +107,31 @@ var painting;
 
 function mouseDown() {
     mouseIsDown = true;
-    console.log('Mouse is down? ' + mouseIsDown);
+    //console.log('Mouse is down? ' + mouseIsDown);
     painting = true;
 }
 
 function mouseUp() {
     mouseIsDown = false;
-    console.log('Mouse is down? ' + mouseIsDown);
+    //console.log('Mouse is down? ' + mouseIsDown);
     painting = false;
 }
 
 function mouseMoving() {
     if (mouseIsDown === true) {
         mouseIsMoving = true;
-        console.log('Mouse is moving? ' + mouseIsMoving);
+        //console.log('Mouse is moving? ' + mouseIsMoving);
+
+        //document.querySelectorAll( ":hover" );
+        var x = event.clientX;
+        var y = event.clientY;
+        var elementMouseIsOver = document.elementFromPoint(x, y);
+
+        if (elementMouseIsOver && elementMouseIsOver.nodeName === 'TD') {
+            if (event.target.tagName === "TD") {
+                changeColor();
+            }
+        }
     }
 }
 
@@ -136,12 +147,12 @@ var getColor = function() {
 
 var changeColor = function() {
     if (event.target !== event.currentTarget) {
-        console.log(painting);
+        //console.log(painting);
         event.target.setAttribute("style", brushColor);
         // console.log('Yes I can');
         if (painting === true) {
-            console.log('Painting!');
-            event.setAttribute("style", brushColor);
+            //console.log('Painting!');
+            event.target.setAttribute("style", brushColor);
         }
     }
 };
