@@ -4,27 +4,52 @@
 <head>
     <meta charset="utf-8">
     <title>Pixel Artist</title>
-    <link rel="stylesheet" href="generateGridAttempt.css" media="screen">
-    <script type="text/javascript" src="generateGridAttempt.js" defer></script>
+    <link rel="stylesheet" href="styles.css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Quicksand" rel="stylesheet">
+    <script type="text/javascript" src="source.js" defer></script>
 </head>
 
 <body>
+    <div id="inputDiv" class="noSelectHighlight">
+
+        <input class="inputs" id="pixelInput" type="text" maxlength="2" range="5, 99" placeholder="#5 - 99">
+        <button class="inputs" type="button" onclick="getPixelSize()">Resize Pixels</button>
+
+        <button class="inputs" type="button" onclick="clearCanvas()">Clear Canvas</button>
+    </div>
+
+    <div id="siteName">
+        <div id="site">PIXEL ARTIST</div>
+    </div>
+
+    <div class="clearFloats"></div>
+    <div id="colorWrapper" class="noSelectHighlight">
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color">
+          <img id="eraserIcon" src="eraser-icon.png" alt="eraser icon">
+        </span>
+    </div>
+
     <div id="divTableContainer" class="gridContainer">
     </div>
-    <div id="colorWrapper">
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
-        <span class="color"></span>
+
+    <div id="colorInput">
+        <input class="inputs" id="customColorInput" type="text" maxlength="7" placeholder="#FFFFFF">
+        <button class="inputs" type="button" onclick="getCustomColor()">Custom Color</button>
     </div>
+
 </body>
 
 </html>

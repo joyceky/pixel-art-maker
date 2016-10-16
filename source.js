@@ -1,8 +1,8 @@
 "use strict";
 /************************SETTING GLOBAL VARIABLES*******************************/
 
-// Size of the square including the border width
-var squareSize = 8;
+// Size of the square
+var pixelSize = 15;
 
 var grid = document.querySelector("#divTableContainer");
 var colors = document.querySelector("#colorWrapper");
@@ -10,6 +10,8 @@ var spans = document.querySelectorAll('span');
 var body = document.querySelector('body');
 
 var brushColor = 'black';
+var customColor = '';
+var eraserColor = 'eraser';
 
 /************************SETTING GLOBAL VARIABLES*******************************/
 
@@ -19,8 +21,8 @@ addTable(document.getElementById('divTableContainer'),
     getNumCellsFromGridSize()
 );
 
-function getSquareSize() {
-    squareSize = document.getElementById('squareSizeInput').value;
+function getPixelSize() {
+    pixelSize = document.getElementById('pixelInput').value;
 
     var myTableContainer = document.getElementById('divTableContainer');
 
@@ -49,21 +51,23 @@ function addTable(container, height, width) {
 
 function getNumCellsFromGridSize() {
     var containerWidth = document.getElementById('divTableContainer').clientWidth;
-    var numOfCells = Math.floor(containerWidth / squareSize);
+    var numOfCells = Math.floor(containerWidth / pixelSize);
     return numOfCells;
 }
 
 // Sometimes this function returns a size of 0
-// TODO: Ask matt why this is
+// Ask Mat why
 function getNumRowsFromGridSize() {
     var containerHeight = document.getElementById('divTableContainer').clientHeight;
-    var cellHeight = Math.floor(containerHeight / squareSize);
+    var cellHeight = Math.floor(containerHeight / pixelSize);
     return cellHeight;
 }
 
 function populateTable(table, rows, cells, tableClass, rowClass, cellClass) {
 
-    if (!table) table = document.createElement('table');
+    if (!table) {
+        table = document.createElement('table');
+    }
 
     for (var i = 0; i < rows; ++i) {
         var row = document.createElement('tr');
@@ -78,8 +82,17 @@ function populateTable(table, rows, cells, tableClass, rowClass, cellClass) {
     }
 
     table.setAttribute('class', tableClass);
-    // table.setAttribute('id', "theTable");
     return table;
+}
+
+function resizeTableSquares() {
+    pixelSize = document.getElementById('pixelInput').value;
+    var myTableContainer = document.getElementById('divTableContainer');
+    myTableContainer.innerHTML = '';
+    myTableContainer = addTable(myTableContainer,
+        getNumRowsFromGridSize(),
+        getNumCellsFromGridSize()
+    );
 }
 
 /************************BUILDING THE TABLE*******************************/
@@ -87,13 +100,18 @@ function populateTable(table, rows, cells, tableClass, rowClass, cellClass) {
 /************************SETTING THE COLOR PALETTE*******************************/
 
 var colorArr = ['#1ABC9C', '#2ECC71', '#3498DB', '#9B59B6', '#34495E',
-    '#F1C40F', '#E67E22', '#E74C3C', '#BDC3C7', '#7F8C8D', '#000000', '#FFFFFF'
+    '#F1C40F', '#E67E22', '#E74C3C', '#BDC3C7', '#7F8C8D', '#000000', '#FFFFFF', '', eraserColor
 ];
 
-function applyColors(colArr) {
+var applyColors = function(colArr) {
     for (var i = 0; i < spans.length; i++) {
         spans[i].setAttribute("style", "background-color: " + colArr[i]);
     }
+}
+
+var getCustomColor = function() {
+    customColor = document.getElementById('customColorInput').value;
+    spans[12].setAttribute("style", "background-color: " + customColor);
 }
 
 applyColors(colorArr);
@@ -105,32 +123,26 @@ var mouseIsDown;
 var mouseIsMoving;
 var painting;
 
-function mouseDown() {
+var mouseDown = function() {
     mouseIsDown = true;
-    //console.log('Mouse is down? ' + mouseIsDown);
     painting = true;
 }
 
-function mouseUp() {
+var mouseUp = function() {
     mouseIsDown = false;
-    //console.log('Mouse is down? ' + mouseIsDown);
     painting = false;
 }
 
-function mouseMoving() {
+var mouseMoving = function() {
     if (mouseIsDown === true) {
         mouseIsMoving = true;
-        //console.log('Mouse is moving? ' + mouseIsMoving);
 
-        //document.querySelectorAll( ":hover" );
         var x = event.clientX;
         var y = event.clientY;
         var elementMouseIsOver = document.elementFromPoint(x, y);
 
-        if (elementMouseIsOver && elementMouseIsOver.nodeName === 'TD') {
-            if (event.target.tagName === "TD") {
-                changeColor();
-            }
+        if (event.target.tagName === "TD") {
+            changeColor();
         }
     }
 }
@@ -151,12 +163,29 @@ var changeColor = function() {
         event.target.setAttribute("style", brushColor);
         // console.log('Yes I can');
         if (painting === true) {
-            //console.log('Painting!');
-            event.target.setAttribute("style", brushColor);
+            console.log(brushColor);
+            if (brushColor === null) {
+                console.log('eraser');
+                event.target.removeAttribute("class");
+                event.target.setAttribute("class", "erasedCell");
+            } else {
+                event.target.setAttribute("style", brushColor);
+                event.target.removeAttribute("class");
+                event.target.setAttribute("class", "paintedCell");
+            }
         }
     }
 };
-/************************PAINTING ON THE CANVAS*******************************/
+
+var clearCanvas = function() {
+        var myTableContainer = document.getElementById('divTableContainer');
+        myTableContainer.innerHTML = '';
+        myTableContainer = addTable(myTableContainer,
+            getNumRowsFromGridSize(),
+            getNumCellsFromGridSize()
+        );
+    }
+    /************************PAINTING ON THE CANVAS*******************************/
 
 /************************EVENT LISTENERS*******************************/
 
