@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Pixel Artist</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css" media="screen">
     <link href="https://fonts.googleapis.com/css?family=Raleway|Quicksand" rel="stylesheet">
     <script type="text/javascript" src="source.js" defer></script>
@@ -12,7 +13,7 @@
 <body>
     <div id="inputDiv" class="noSelectHighlight">
 
-        <input class="inputs" id="pixelInput" type="text" maxlength="2" range="5, 99" placeholder="#5 - 99">
+        <input class="inputs" id="pixelInput" type="text" maxlength="2" placeholder="5 - 99">
         <button class="inputs" type="button" onclick="getPixelSize()">Resize Pixels</button>
 
         <button class="inputs" type="button" onclick="clearCanvas()">Clear Canvas</button>
@@ -23,6 +24,7 @@
     </div>
 
     <div class="clearFloats"></div>
+
     <div id="colorWrapper" class="noSelectHighlight">
         <span class="color"></span>
         <span class="color"></span>
@@ -47,6 +49,7 @@
 
     <div id="colorInput">
         <input class="inputs" id="customColorInput" type="text" maxlength="7" placeholder="#FFFFFF">
+        <input class="inputs" id="customColorInput1" type="color">
         <button class="inputs" type="button" onclick="getCustomColor()">Custom Color</button>
     </div>
 

@@ -1,4 +1,6 @@
 "use strict";
+
+
 /************************SETTING GLOBAL VARIABLES*******************************/
 
 // Size of the square
@@ -16,28 +18,30 @@ var eraserColor = 'eraser';
 /************************SETTING GLOBAL VARIABLES*******************************/
 
 /************************BUILDING THE TABLE*******************************/
-addTable(document.getElementById('divTableContainer'),
-    getNumRowsFromGridSize(),
-    getNumCellsFromGridSize()
-);
+window.onload = function() {
+    addTable(document.getElementById('divTableContainer'),
+        getNumRowsFromGridSize(),
+        getNumCellsFromGridSize()
+    );
+};
 
 function getPixelSize() {
     pixelSize = document.getElementById('pixelInput').value;
-
     var myTableContainer = document.getElementById('divTableContainer');
 
-    // Remove the table by accessing innerHTML for now
+    if(pixelSize >= 5) {
+
     myTableContainer.innerHTML = '';
 
     myTableContainer = addTable(myTableContainer,
         getNumRowsFromGridSize(),
         getNumCellsFromGridSize()
     );
+  }
 }
 
-// Adds a table to the container
 function addTable(container, height, width) {
-    console.log('Building table of height' + height + ' and width' + width);
+    console.log('Building table of height: ' + height + ' and width: ' + width);
     container.appendChild(populateTable(null, height, width, 'grid', 'row', 'cell'));
 
     var checkTable = container.getElementsByTagName('table');
@@ -55,8 +59,7 @@ function getNumCellsFromGridSize() {
     return numOfCells;
 }
 
-// Sometimes this function returns a size of 0
-// Ask Mat why
+
 function getNumRowsFromGridSize() {
     var containerHeight = document.getElementById('divTableContainer').clientHeight;
     var cellHeight = Math.floor(containerHeight / pixelSize);
@@ -85,15 +88,6 @@ function populateTable(table, rows, cells, tableClass, rowClass, cellClass) {
     return table;
 }
 
-function resizeTableSquares() {
-    pixelSize = document.getElementById('pixelInput').value;
-    var myTableContainer = document.getElementById('divTableContainer');
-    myTableContainer.innerHTML = '';
-    myTableContainer = addTable(myTableContainer,
-        getNumRowsFromGridSize(),
-        getNumCellsFromGridSize()
-    );
-}
 
 /************************BUILDING THE TABLE*******************************/
 
@@ -107,12 +101,21 @@ var applyColors = function(colArr) {
     for (var i = 0; i < spans.length; i++) {
         spans[i].setAttribute("style", "background-color: " + colArr[i]);
     }
-}
+};
 
 var getCustomColor = function() {
-    customColor = document.getElementById('customColorInput').value;
-    spans[12].setAttribute("style", "background-color: " + customColor);
-}
+  var customHex = document.getElementById('customColorInput').value;
+  if(customHex === ''){
+      customColor = document.getElementById('customColorInput1').value;
+      spans[12].setAttribute("style", "background-color: " + customColor);
+      document.getElementById('customColorInput').value='';
+    }
+  else {
+      customColor = document.getElementById('customColorInput').value;
+      spans[12].setAttribute("style", "background-color: " + customColor);
+      document.getElementById('customColorInput').value='';
+    }
+  };
 
 applyColors(colorArr);
 
@@ -126,12 +129,12 @@ var painting;
 var mouseDown = function() {
     mouseIsDown = true;
     painting = true;
-}
+};
 
 var mouseUp = function() {
     mouseIsDown = false;
     painting = false;
-}
+};
 
 var mouseMoving = function() {
     if (mouseIsDown === true) {
@@ -145,7 +148,7 @@ var mouseMoving = function() {
             changeColor();
         }
     }
-}
+};
 
 /************************TRACKING CLICKS AND MOUSE MOVEMENTS*******************************/
 
@@ -159,9 +162,7 @@ var getColor = function() {
 
 var changeColor = function() {
     if (event.target !== event.currentTarget) {
-        //console.log(painting);
         event.target.setAttribute("style", brushColor);
-        // console.log('Yes I can');
         if (painting === true) {
             console.log(brushColor);
             if (brushColor === null) {
@@ -178,14 +179,14 @@ var changeColor = function() {
 };
 
 var clearCanvas = function() {
-        var myTableContainer = document.getElementById('divTableContainer');
-        myTableContainer.innerHTML = '';
-        myTableContainer = addTable(myTableContainer,
-            getNumRowsFromGridSize(),
-            getNumCellsFromGridSize()
-        );
-    }
-    /************************PAINTING ON THE CANVAS*******************************/
+    var myTableContainer = document.getElementById('divTableContainer');
+    myTableContainer.innerHTML = '';
+    myTableContainer = addTable(myTableContainer,
+        getNumRowsFromGridSize(),
+        getNumCellsFromGridSize()
+    );
+};
+/************************PAINTING ON THE CANVAS*******************************/
 
 /************************EVENT LISTENERS*******************************/
 
