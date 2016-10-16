@@ -1,5 +1,5 @@
 Features to Add:
 
-- Add validation to hex value, and add x in custom color circle when
 - Add download button/screenshot button
 - Add print button
+- add current color span

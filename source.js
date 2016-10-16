@@ -10,6 +10,8 @@ var grid = document.querySelector("#divTableContainer");
 var colors = document.querySelector("#colorWrapper");
 var spans = document.querySelectorAll('span');
 var body = document.querySelector('body');
+var currentColor = document.getElementById("currentColor");
+
 
 var brushColor = 'black';
 var customColor = '';
@@ -29,15 +31,15 @@ function getPixelSize() {
     pixelSize = document.getElementById('pixelInput').value;
     var myTableContainer = document.getElementById('divTableContainer');
 
-    if(pixelSize >= 5) {
+    if (pixelSize >= 5) {
 
-    myTableContainer.innerHTML = '';
+        myTableContainer.innerHTML = '';
 
-    myTableContainer = addTable(myTableContainer,
-        getNumRowsFromGridSize(),
-        getNumCellsFromGridSize()
-    );
-  }
+        myTableContainer = addTable(myTableContainer,
+            getNumRowsFromGridSize(),
+            getNumCellsFromGridSize()
+        );
+    }
 }
 
 function addTable(container, height, width) {
@@ -104,18 +106,17 @@ var applyColors = function(colArr) {
 };
 
 var getCustomColor = function() {
-  var customHex = document.getElementById('customColorInput').value;
-  if(customHex === ''){
-      customColor = document.getElementById('customColorInput1').value;
-      spans[12].setAttribute("style", "background-color: " + customColor);
-      document.getElementById('customColorInput').value='';
+    var customHex = document.getElementById('customColorInput').value;
+    if (customHex === '') {
+        customColor = document.getElementById('customColorInput1').value;
+        spans[12].setAttribute("style", "background-color: " + customColor);
+        document.getElementById('customColorInput').value = '';
+    } else {
+        customColor = document.getElementById('customColorInput').value;
+        spans[12].setAttribute("style", "background-color: " + customColor);
+        document.getElementById('customColorInput').value = '';
     }
-  else {
-      customColor = document.getElementById('customColorInput').value;
-      spans[12].setAttribute("style", "background-color: " + customColor);
-      document.getElementById('customColorInput').value='';
-    }
-  };
+};
 
 applyColors(colorArr);
 
@@ -157,6 +158,7 @@ var mouseMoving = function() {
 var getColor = function() {
     if (event.target !== event.currentTarget) {
         brushColor = event.target.getAttribute("style");
+        currentColor.setAttribute("style", brushColor);
     }
 };
 

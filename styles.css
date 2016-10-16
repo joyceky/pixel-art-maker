@@ -96,7 +96,24 @@ body {
     border: 1px white solid;
 }
 
+.special {
+    display: inline-flex;
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+    margin-top: 1vh;
+    padding 0.5vh;
+    border: 3px grey solid;
+}
+
 #eraserIcon {
+    height: 60px;
+    width: 60px;
+    display: inline;
+    border-radius: 50%;
+}
+
+#penIcon {
     height: 60px;
     width: 60px;
     display: inline;
