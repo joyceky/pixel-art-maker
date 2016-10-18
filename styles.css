@@ -78,7 +78,7 @@ body {
 
 #colorWrapper {
     display: inline-block;
-    height: 100px;
+    height: 53vh;
     width: 20vw;
     text-align: center;
     background-color: #CBD2D4;
@@ -125,7 +125,7 @@ body {
     clear: left;
     padding-left: 2vw;
     padding-top: 2vh;
-    height: 20vh;
+    height: 30vh;
     width: 20vw;
     text-align: center;
 }
